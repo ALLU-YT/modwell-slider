@@ -23,20 +23,18 @@
         overflow: hidden;
         width: 100%;
         margin: 16px;
-        height: 287px;
+        height: 255px;
       }
       .image-section {
         position: relative;
         width: 50%;
-        /* height: 77%; */
         border-radius: 30px;
-        /* padding: 27px; */
         margin-left: 10px;
         overflow: hidden;
       }
       .image-section img {
         width: 100%;
-        height: 219px;
+        height: 204px;
         display: block;
       }
       .details-section {
@@ -46,6 +44,7 @@
         padding: 20px;
         width: 50%;
         text-align: center;
+        position: relative;
       }
       .details-section .discount {
         background-color: red;
@@ -57,8 +56,8 @@
         margin-bottom: 10px;
       }
       .details-section .product-name {
-        font-size: 18px;
-        font-weight: bold;
+        font-size: 15px;
+        /* font-weight: bold; */
         margin: 5px 0;
       }
       .details-section .product-price {
@@ -79,10 +78,28 @@
       }
       .image-display {
         margin-top: 10px;
+        position: relative;
       }
       .image-display img {
-        width: 100%;
-        height: auto;
+        width: 86%;
+        height: 140px;
+      }
+      .arrow-left,
+      .arrow-right {
+        position: absolute;
+        top: 90%;
+        transform: translateY(-54%);
+        background-color: #f0f0f0;
+        border: none;
+        border-radius: 50%;
+        padding: 11px;
+        cursor: pointer;
+      }
+      .arrow-left {
+        left: -20px;
+      }
+      .arrow-right {
+        right: -20px;
       }
     </style>
   </head>
@@ -101,17 +118,15 @@
             alt="Product Image"
             id="displayed-image"
           />
+          <button class="arrow-left" onclick="changeImage('prev')">◀</button>
+          <button class="arrow-right" onclick="changeImage('next')">▶</button>
         </div>
 
-        <div class="discount" id="discount">-8%</div>
+        <!-- <div class="discount" id="discount">-8%</div> -->
         <div class="product-name" id="product-name">
           Oakley Men's Standard...
         </div>
         <div class="product-price" id="product-price">Rs1,100.00</div>
-        <div class="arrows">
-          <button class="arrow" onclick="changeImage('prev')">◀</button>
-          <button class="arrow" onclick="changeImage('next')">▶</button>
-        </div>
       </div>
     </div>
 
@@ -120,22 +135,22 @@
         {
           image:
             "https://store.zeekoi.info/public/uploads/all/xVYE6G4jslE0gq341uA91naDVdQP8UeM1DW12ymm.jpg",
-          discount: "-8%",
+          // discount: "-8%",
           name: "Oakley Men's Standard...",
           price: "Rs1,100.00",
         },
         {
           image:
             "https://store.zeekoi.info/public/uploads/all/X5NPNhkS2zO3lsdmnpmLtxCUw0YWjlhmH1Ivn8Yc.jpg",
-          discount: "-10%",
-          name: "Nike Men's T-Shirt",
+          // discount: "-10%",
+          name: "Nike Men's T-Shirt......",
           price: "Rs2,200.00",
         },
         {
           image:
             "https://store.zeekoi.info/public/uploads/all/xVYE6G4jslE0gq341uA91naDVdQP8UeM1DW12ymm.jpg",
-          discount: "-5%",
-          name: "Adidas Men's Hoodie",
+          // discount: "-5%",
+          name: "Adidas Men's Hoodie......",
           price: "Rs3,000.00",
         },
       ];
@@ -149,8 +164,8 @@
         }
         document.getElementById("displayed-image").src =
           products[currentIndex].image;
-        document.getElementById("discount").textContent =
-          products[currentIndex].discount;
+        // document.getElementById("discount").textContent =
+        //   products[currentIndex].discount;
         document.getElementById("product-name").textContent =
           products[currentIndex].name;
         document.getElementById("product-price").textContent =
