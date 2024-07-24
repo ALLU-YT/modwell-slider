@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Card</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f2f2f2;
+        margin: 0;
+      }
+      .card {
+        display: flex;
+        align-items: center;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        width: 100%;
+        margin: 16px;
+        height: 287px;
+      }
+      .image-section {
+        position: relative;
+        width: 50%;
+        /* height: 77%; */
+        border-radius: 30px;
+        /* padding: 27px; */
+        margin-left: 10px;
+        overflow: hidden;
+      }
+      .image-section img {
+        width: 100%;
+        height: 219px;
+        display: block;
+      }
+      .details-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 20px;
+        width: 50%;
+        text-align: center;
+      }
+      .details-section .discount {
+        background-color: red;
+        color: white;
+        border-radius: 5px;
+        padding: 2px 5px;
+        font-size: 12px;
+        display: inline-block;
+        margin-bottom: 10px;
+      }
+      .details-section .product-name {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 5px 0;
+      }
+      .details-section .product-price {
+        color: #ff4500;
+        font-size: 16px;
+      }
+      .arrows {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+      }
+      .arrows .arrow {
+        background-color: #f0f0f0;
+        border: none;
+        border-radius: 50%;
+        padding: 5px;
+        cursor: pointer;
+      }
+      .image-display {
+        margin-top: 10px;
+      }
+      .image-display img {
+        width: 100%;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="image-section">
+        <img
+          src="https://store.zeekoi.info/public/uploads/all/xVYE6G4jslE0gq341uA91naDVdQP8UeM1DW12ymm.jpg"
+          alt="Product Image"
+        />
+      </div>
+      <div class="details-section">
+        <div class="image-display">
+          <img
+            src="https://store.zeekoi.info/public/uploads/all/xVYE6G4jslE0gq341uA91naDVdQP8UeM1DW12ymm.jpg"
+            alt="Product Image"
+            id="displayed-image"
+          />
+        </div>
+
+        <div class="discount" id="discount">-8%</div>
+        <div class="product-name" id="product-name">
+          Oakley Men's Standard...
+        </div>
+        <div class="product-price" id="product-price">Rs1,100.00</div>
+        <div class="arrows">
+          <button class="arrow" onclick="changeImage('prev')">◀</button>
+          <button class="arrow" onclick="changeImage('next')">▶</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const products = [
+        {
+          image:
+            "https://store.zeekoi.info/public/uploads/all/xVYE6G4jslE0gq341uA91naDVdQP8UeM1DW12ymm.jpg",
+          discount: "-8%",
+          name: "Oakley Men's Standard...",
+          price: "Rs1,100.00",
+        },
+        {
+          image:
+            "https://store.zeekoi.info/public/uploads/all/X5NPNhkS2zO3lsdmnpmLtxCUw0YWjlhmH1Ivn8Yc.jpg",
+          discount: "-10%",
+          name: "Nike Men's T-Shirt",
+          price: "Rs2,200.00",
+        },
+        {
+          image:
+            "https://store.zeekoi.info/public/uploads/all/xVYE6G4jslE0gq341uA91naDVdQP8UeM1DW12ymm.jpg",
+          discount: "-5%",
+          name: "Adidas Men's Hoodie",
+          price: "Rs3,000.00",
+        },
+      ];
+      let currentIndex = 0;
+
+      function changeImage(direction) {
+        if (direction === "prev") {
+          currentIndex = (currentIndex - 1 + products.length) % products.length;
+        } else {
+          currentIndex = (currentIndex + 1) % products.length;
+        }
+        document.getElementById("displayed-image").src =
+          products[currentIndex].image;
+        document.getElementById("discount").textContent =
+          products[currentIndex].discount;
+        document.getElementById("product-name").textContent =
+          products[currentIndex].name;
+        document.getElementById("product-price").textContent =
+          products[currentIndex].price;
+      }
+    </script>
+  </body>
+</html>
