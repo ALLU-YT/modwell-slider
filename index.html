@@ -3,183 +3,469 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product Card</title>
+    <title>Document</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Montserrat:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS Libraries -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/flickity@2/dist/flickity.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.0/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="profileSlider.css" />
+    <link rel="stylesheet" href="details.css" />
+  </head>
+
+  <body>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: #f2f2f2;
-        margin: 0;
+      body{
+        background-color: black;
+    
+     
       }
-      .card {
-        display: flex;
-        border-radius: 12px;
-        align-items: center;
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      .product-grid {
+       
+        font-family: "Poppins", sans-serif;
+        text-align: center;
+        border-radius: 15px;
+        border: 1px solid #e7e7e7;
         overflow: hidden;
-        width: 100%;
-        margin: 16px;
-        height: 246px;
+        transition: all 0.4s ease-out;
       }
-      .image-section {
+      .product-grid:hover {
+        box-shadow: 5px 10px 30px rgba(0, 0, 0, 0.1);
+      }
+      .product-grid .product-image {
         position: relative;
-        width: 50%;
-        border-radius: 12px;
-        margin-left: 10px;
-        overflow: hidden;
       }
-      .image-section img {
-        width: 100%;
-        height: 212px;
+      .product-grid .product-image a.image {
         display: block;
       }
-      .details-section {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 20px;
-        width: 50%;
-        text-align: center;
-        position: relative;
+      .product-grid .product-image img {
+        width: 100%;
+        height: auto;
       }
-      .details-section .discount {
-        background-color: red;
-        color: white;
+      .product-grid .product-discount-label {
+        color: #fff;
+        background: #78a206;
+        font-size: 14px;
+        font-weight: 400;
+        text-transform: uppercase;
+        padding: 2px 8px;
         border-radius: 5px;
-        padding: 2px 5px;
-        font-size: 12px;
+        position: absolute;
+        top: 12px;
+        left: 12px;
+      }
+      .product-grid .product-links {
+        width: 145px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        opacity: 0;
+        transform: translateX(-50%) translateY(-50%);
+        position: absolute;
+        top: 65%;
+        left: 50%;
+        transition: all 0.4s ease 0s;
+      }
+      .product-grid:hover .product-links {
+        opacity: 1;
+        top: 50%;
+      }
+      .product-grid .product-links li {
         display: inline-block;
-        margin-bottom: 10px;
+        margin: 0 2px;
       }
-      .details-section .product-name {
-        font-size: 15px;
-        /* font-weight: bold; */
-        margin: 5px 0;
-      }
-      .details-section .product-price {
-        color: #ff4500;
+      .product-grid .product-links li a {
+        color: #2c2c2c;
+        background: #fff;
         font-size: 16px;
+        line-height: 42px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50px;
+        display: block;
+        position: relative;
+        transition: all 0.4s ease-out 0s;
       }
-      .arrows {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 10px;
+      .product-grid .product-links li a:hover {
+        color: #fff;
+        background: #78a206;
+        box-shadow: 1px 1px 30px 0 rgba(0, 0, 0, 0.2);
       }
-      .arrows .arrow {
-        background-color: #f0f0f0;
-        border: none;
-        border-radius: 50%;
-        padding: 5px;
-        cursor: pointer;
+      .product-grid .product-links li a:before,
+      .product-grid .product-links li a:after {
+        content: attr(data-tip);
+        color: #fff;
+        background-color: #555;
+        font-size: 12px;
+        line-height: 18px;
+        padding: 5px 10px;
+        white-space: nowrap;
+        display: none;
+        transform: translateX(-50%);
+        position: absolute;
+        left: 50%;
+        top: -40px;
+        transition: all 0.3s ease 0s;
       }
-      .image-display {
-        margin-top: 10px;
+      .product-grid .product-links li a:after {
+        content: "";
+        height: 10px;
+        width: 10px;
+        padding: 0;
+        transform: translateX(-50%) rotate(45deg);
+        top: -18px;
+        z-index: -1;
+      }
+      .product-grid .product-links li a:hover:before,
+      .product-grid .product-links li a:hover:after {
+        display: block;
+      }
+      .product-grid .product-content {
+        padding: 12px 12px 15px;
         position: relative;
       }
-      .image-display img {
-        width: 80%;
-        height: 124px;
+      .product-grid .rating {
+        padding: 0;
+        margin: 0 0 8px;
+        list-style: none;
       }
-      .arrow-left,
-      .arrow-right {
-        position: absolute;
-        top: 90%;
-        transform: translateY(-54%);
-        background-color: #f0f0f0;
-        border: none;
-        border-radius: 50%;
-        padding: 11px;
-        cursor: pointer;
+      .product-grid .rating li {
+        color: #78a206;
+        font-size: 14px;
       }
-      .arrow-left {
-        left: -20px;
+      .product-grid .rating .far {
+        color: #808080;
       }
-      .arrow-right {
-        right: -20px;
-      }
-      .addtoCart {
+      .product-grid .title {
         color: white;
-        padding: 8px;
-        border-radius: 12px;
+        font-size: 18px;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin: 0 0 15px;
+      }
+      .product-grid .title a {
+       
+        color: #2c2c2c;
+        transition: all 0.3s ease 0s;
+      }
+      .product-grid .title a:hover {
+        color: #78a206;
+      }
+      .product-grid .price {
+        color: #78a206;
+        font-size: 17px;
+        font-weight: 600;
+        display: block;
+        transition: all 0.4s ease-in-out;
+      }
+      .product-grid .price span {
+        color: #999;
+        font-weight: 500;
+        text-decoration: line-through;
+      }
+      .product-grid:hover .price {
+        opacity: 0;
+      }
+      .product-grid .add-to-cart {
+        text-decoration: none;
+        color: #fff;
         background-color: #18578c;
-        border: none;
+        font-size: 16px;
+        font-weight: 500;
+        text-transform: uppercase;
+        line-height: 40px;
+        width: 140px;
+        height: 40px;
+        border-radius: 50px;
+        opacity: 0;
+        transform: translateX(-50%);
+        position: absolute;
+        bottom: 50px;
+        left: 50%;
+        transition: all 0.4s ease-out;
+      }
+      .product-grid .add-to-cart:hover {
+        background-color: #2f2f2f;
+      }
+      .product-grid:hover .add-to-cart {
+        opacity: 1;
+        bottom: 8px;
+      }
+      @media screen and (max-width: 1200px) {
+        .product-grid {
+          margin: 0 0 30px;
+        }
       }
     </style>
-  </head>
-  <body>
-    <div class="card">
-      <div class="image-section">
-        <img
-          src="https://www.glazonoid.com/cdn/shop/products/Extended-frame.jpg?v=1709814876&width=1946"
-          alt="Product Image"
-        />
-      </div>
-      <div class="details-section">
-        <div class="image-display">
-          <img
-            src="https://www.glazonoid.com/cdn/shop/products/Extended-frame.jpg?v=1709814876&width=1946"
-            alt="Product Image"
-            id="displayed-image"
-          />
-          <button class="arrow-left" onclick="changeImage('prev')">◀</button>
-          <button class="arrow-right" onclick="changeImage('next')">▶</button>
-        </div>
 
-        <!-- <div class="discount" id="discount">-8%</div> -->
-        <div class="product-name" id="product-name">
-          Oakley Men's Standard...
+   
+      <div class="container" style="    background: rgb(24 22 22); margin-top: 200px; padding: 15px;">
+        <div class="row">
+          <div class="col col-lg-2 col-md-4 col-sm-6 mb-3">
+            <img
+              style="height: 100% ;border-radius: 12px;"
+              src="https://www.glazonoid.com/cdn/shop/products/Extended-frame.jpg?v=1709814876&width=1946"
+              alt="Product Image"
+              class="img-fluid"
+            />
+          </div>
+          <div class="col col-lg-2 col-md-4 col-sm-6 mb-3">
+            <div>
+              <div class="product-grid">
+                <div class="product-image">
+                  <a href="#" class="image">
+                    <img
+                      class="pic-1"
+                      src="https://www.glazonoid.com/cdn/shop/products/Astral_2048x2048.jpg?v=1706009649"
+                    />
+                  </a>
+                  <span class="product-discount-label">-33%</span>
+                  <ul class="product-links">
+                    <li>
+                      <a href="#" data-tip="Add to Wishlist"
+                        ><i class="fas fa-heart"></i
+                      ></a>
+                    </li>
+                    <li>
+                      <a href="#" data-tip="Compare"
+                        ><i class="fa fa-random"></i
+                      ></a>
+                    </li>
+                    <li>
+                      <a href="#" data-tip="Quick View"
+                        ><i class="fa fa-search"></i
+                      ></a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="product-content">
+                  <ul class="rating">
+                    <li class="fas fa-star"></li>
+                    <li class="fas fa-star"></li>
+                    <li class="fas fa-star"></li>
+                    <li class="far fa-star"></li>
+                    <li class="far fa-star"></li>
+                  </ul>
+                  <h3 class="title">Men's Blazer</h3>
+                  <div class="price"><span>$90.00</span> $66.00</div>
+                  <a class="add-to-cart" href="#">add to cart</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col col-lg-2 col-md-4 col-sm-6 mb-3">
+            <div>
+              <div class="product-grid">
+                <div class="product-image">
+                  <a href="#" class="image">
+                    <img
+                      class="pic-1"
+                      src="https://www.glazonoid.com/cdn/shop/products/Astral_2048x2048.jpg?v=1706009649"
+                    />
+                  </a>
+                  <span class="product-discount-label">-33%</span>
+                  <ul class="product-links">
+                    <li>
+                      <a href="#" data-tip="Add to Wishlist"
+                        ><i class="fas fa-heart"></i
+                      ></a>
+                    </li>
+                    <li>
+                      <a href="#" data-tip="Compare"
+                        ><i class="fa fa-random"></i
+                      ></a>
+                    </li>
+                    <li>
+                      <a href="#" data-tip="Quick View"
+                        ><i class="fa fa-search"></i
+                      ></a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="product-content">
+                  <ul class="rating">
+                    <li class="fas fa-star"></li>
+                    <li class="fas fa-star"></li>
+                    <li class="fas fa-star"></li>
+                    <li class="far fa-star"></li>
+                    <li class="far fa-star"></li>
+                  </ul>
+                  <h3 class="title">Men's Blazer</h3>
+                  <div class="price"><span>$90.00</span> $66.00</div>
+                  <a class="add-to-cart" href="#">add to cart</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col col-lg-2 col-md-4 col-sm-6 mb-3">
+            <div>
+              <div class="product-grid">
+                <div class="product-image">
+                  <a href="#" class="image">
+                    <img
+                      class="pic-1"
+                      src="https://www.glazonoid.com/cdn/shop/products/Astral_2048x2048.jpg?v=1706009649"
+                    />
+                  </a>
+                  <span class="product-discount-label">-33%</span>
+                  <ul class="product-links">
+                    <li>
+                      <a href="#" data-tip="Add to Wishlist"
+                        ><i class="fas fa-heart"></i
+                      ></a>
+                    </li>
+                    <li>
+                      <a href="#" data-tip="Compare"
+                        ><i class="fa fa-random"></i
+                      ></a>
+                    </li>
+                    <li>
+                      <a href="#" data-tip="Quick View"
+                        ><i class="fa fa-search"></i
+                      ></a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="product-content">
+                  <ul class="rating">
+                    <li class="fas fa-star"></li>
+                    <li class="fas fa-star"></li>
+                    <li class="fas fa-star"></li>
+                    <li class="far fa-star"></li>
+                    <li class="far fa-star"></li>
+                  </ul>
+                  <h3 class="title">Men's Blazer</h3>
+                  <div class="price"><span>$90.00</span> $66.00</div>
+                  <a class="add-to-cart" href="#">add to cart</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col col-lg-2 col-md-4 col-sm-6 mb-3">
+            <div>
+              <div class="product-grid">
+                <div class="product-image">
+                  <a href="#" class="image">
+                    <img
+                      class="pic-1"
+                      src="https://www.glazonoid.com/cdn/shop/products/Astral_2048x2048.jpg?v=1706009649"
+                    />
+                  </a>
+                  <span class="product-discount-label">-33%</span>
+                  <ul class="product-links">
+                    <li>
+                      <a href="#" data-tip="Add to Wishlist"
+                        ><i class="fas fa-heart"></i
+                      ></a>
+                    </li>
+                    <li>
+                      <a href="#" data-tip="Compare"
+                        ><i class="fa fa-random"></i
+                      ></a>
+                    </li>
+                    <li>
+                      <a href="#" data-tip="Quick View"
+                        ><i class="fa fa-search"></i
+                      ></a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="product-content">
+                  <ul class="rating">
+                    <li class="fas fa-star"></li>
+                    <li class="fas fa-star"></li>
+                    <li class="fas fa-star"></li>
+                    <li class="far fa-star"></li>
+                    <li class="far fa-star"></li>
+                  </ul>
+                  <h3 class="title">Men's Blazer</h3>
+                  <div class="price"><span>$90.00</span> $66.00</div>
+                  <a class="add-to-cart" href="#">add to cart</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col col-lg-2 col-md-4 col-sm-6 mb-3">
+            <div>
+              <div class="product-grid">
+                <div class="product-image">
+                  <a href="#" class="image">
+                    <img
+                      class="pic-1"
+                      src="https://www.glazonoid.com/cdn/shop/products/Astral_2048x2048.jpg?v=1706009649"
+                    />
+                  </a>
+                  <span class="product-discount-label">-33%</span>
+                  <ul class="product-links">
+                    <li>
+                      <a href="#" data-tip="Add to Wishlist"
+                        ><i class="fas fa-heart"></i
+                      ></a>
+                    </li>
+                    <li>
+                      <a href="#" data-tip="Compare"
+                        ><i class="fa fa-random"></i
+                      ></a>
+                    </li>
+                    <li>
+                      <a href="#" data-tip="Quick View"
+                        ><i class="fa fa-search"></i
+                      ></a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="product-content">
+                  <ul class="rating">
+                    <li class="fas fa-star"></li>
+                    <li class="fas fa-star"></li>
+                    <li class="fas fa-star"></li>
+                    <li class="far fa-star"></li>
+                    <li class="far fa-star"></li>
+                  </ul>
+                  <h3 class="title">Men's Blazer</h3>
+                  <div class="price"><span>$90.00</span> $66.00</div>
+                  <a class="add-to-cart" href="#">add to cart</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <button class="addtoCart">Add To Cart</button>
-        <!-- <div class="product-price" id="product-price">Rs1,100.00</div> -->
       </div>
     </div>
 
-    <script>
-      const products = [
-        {
-          image:
-            "https://store.zeekoi.info/public/uploads/all/xVYE6G4jslE0gq341uA91naDVdQP8UeM1DW12ymm.jpg",
-          // discount: "-8%",
-          name: "Oakley Men's Standard...",
-          price: "Rs1,100.00",
-        },
-        {
-          image:
-            "https://www.glazonoid.com/cdn/shop/products/Astral_2048x2048.jpg?v=1706009649",
-          // discount: "-10%",
-          name: "Oakley Men's Standard...",
-          price: "Rs2,200.00",
-        },
-        {
-          image:
-            "https://www.glazonoid.com/cdn/shop/products/Blaze.webp?v=1708597117&width=1346",
-          // discount: "-5%",
-          name: "Adidas Men's Hoodie......",
-          price: "Rs3,000.00",
-        },
-      ];
-      let currentIndex = 0;
-
-      function changeImage(direction) {
-        if (direction === "prev") {
-          currentIndex = (currentIndex - 1 + products.length) % products.length;
-        } else {
-          currentIndex = (currentIndex + 1) % products.length;
-        }
-        document.getElementById("displayed-image").src =
-          products[currentIndex].image;
-        // document.getElementById("discount").textContent =
-        //   products[currentIndex].discount;
-        document.getElementById("product-name").textContent =
-          products[currentIndex].name;
-        document.getElementById("product-price").textContent =
-          products[currentIndex].price;
-      }
-    </script>
+    <!-- JS Libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   </body>
 </html>
